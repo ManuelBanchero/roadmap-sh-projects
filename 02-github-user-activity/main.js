@@ -17,7 +17,7 @@ async function main() {
         const lastUserActivity = data.slice(0, 10)
 
         lastUserActivity.forEach((activity, i) => {
-            const repo = activity.repo.name.split('/')[1]
+            const repo = activity.repo.name
             switch(activity.type) {
                 case 'CreateEvent': {
                     if(activity.payload.ref_type === 'repository')
@@ -39,8 +39,18 @@ async function main() {
                     console.log(`${i + 1}- Pushed ${activity.payload.size} ${activity.payload.size === 1 ? 'commit' : 'commits'} to ${repo}`)
                     break
                 }
+                case 'IssueCommentEvent': {
+                    console.log(`${i + 1}- Commented an issue in ${repo}`)
+                    break
+                }
+                case 'WatchEvent': {
+                    console.log(`${i + 1}- Gave a star to ${repo}`)
+                    break
+                }
                 default: {
                     console.log(`${i + 1}- ${activity.type} is not handle it.`)
+                    console.log(activity)
+                    break
                 }
             }
         })
