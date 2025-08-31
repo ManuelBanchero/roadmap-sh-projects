@@ -47,6 +47,10 @@ async function main() {
                     console.log(`${i + 1}- Gave a star to ${repo}`)
                     break
                 }
+                case 'PullRequestEvent': {
+                    console.log(`${i + 1}- Made a pull request to ${repo}`)
+                    break
+                }
                 default: {
                     console.log(`${i + 1}- ${activity.type} is not handle it.`)
                     console.log(activity)
